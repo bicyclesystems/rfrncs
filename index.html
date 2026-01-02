@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rfrncs</title>
+  <link rel="stylesheet" href="https://renecss.org/rene.css">
+</head>
+<body class="padding-xl">
+  <h1>rfrncs</h1>
+  <p>csv reference files for html and css</p>
+
+  <nav>
+    <button onclick="load('css-pseudo-classes')">css-pseudo-classes</button>
+    <button onclick="load('css-selectors')">css-selectors</button>
+    <button onclick="load('files')">files</button>
+    <button onclick="load('html-attributes')">html-attributes</button>
+    <button onclick="load('html-elements')">html-elements</button>
+    <button onclick="load('html-global-attributes')">html-global-attributes</button>
+  </nav>
+
+  <table id="output"></table>
+
+  <script>
+    function parseCSV(text) {
+      const rows = [], chars = text.split('');
+      let row = [], cell = '', inQuotes = false;
+
+      for (let i = 0; i < chars.length; i++) {
+        const c = chars[i];
+        if (inQuotes) {
+          if (c === '"' && chars[i + 1] === '"') { cell += '"'; i++; }
+          else if (c === '"') inQuotes = false;
+          else cell += c;
+        } else {
+          if (c === '"') inQuotes = true;
+          else if (c === ',') { row.push(cell); cell = ''; }
+          else if (c === '\n' || (c === '\r' && chars[i + 1] === '\n')) {
+            if (c === '\r') i++;
+            row.push(cell); rows.push(row); row = []; cell = '';
+          } else cell += c;
+        }
+      }
+      if (cell || row.length) { row.push(cell); rows.push(row); }
+      return rows;
+    }
+
+    const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    async function load(name) {
+      const text = await (await fetch(name + '.csv')).text();
+      document.getElementById('output').innerHTML = parseCSV(text)
+        .map((r, i) => `<tr>${r.map(c => `<${i ? 'td' : 'th'}>${esc(c)}</${i ? 'td' : 'th'}>`).join('')}</tr>`)
+        .join('');
+    }
+
+    load('html-elements');
+  </script>
+</body>
+</html>
