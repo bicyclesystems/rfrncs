@@ -1,77 +1,29 @@
 # rfrncs
 
-welcome to the references, a comprehensive repository that includes csv files containing detailed data on html elements, attributes, css selectors and more. this project is designed to serve as a quick and convenient resource for designers and developers alike.
+a collection of csv files containing reference data for html elements, attributes, css selectors and more. designed as a quick resource for designers and developers.
 
-## Intended use
+## usage
 
-the references aims to streamline your development process by offering a single source of truth for various html and css types.
-
-## Usage
-
-#### CSS Pseudo Classes References
-
-`cssPseudoClassesReferences`: An array containing reference data for CSS pseudo-classes.
-
-Each element in the array corresponds to the type `TCssPseudoClassesReferences`.
+fetch csv files directly from:
 
 ```
-import { cssPseudoClassesReferences } from "@rnbws/rfrncs.design";
+https://bicyclesystems.github.io/rfrncs/{filename}.csv
 ```
 
-#### CSS Selectors References
+### available files
 
-`cssSelectorsReferences`: An array containing reference data for CSS selectors.
+| file | url |
+|------|-----|
+| css pseudo classes | `https://bicyclesystems.github.io/rfrncs/css-pseudo-classes.csv` |
+| css selectors | `https://bicyclesystems.github.io/rfrncs/css-selectors.csv` |
+| files | `https://bicyclesystems.github.io/rfrncs/files.csv` |
+| html attributes | `https://bicyclesystems.github.io/rfrncs/html-attributes.csv` |
+| html elements | `https://bicyclesystems.github.io/rfrncs/html-elements.csv` |
+| html global attributes | `https://bicyclesystems.github.io/rfrncs/html-global-attributes.csv` |
 
-Each element in the array corresponds to the type `TCssSelectorsReferences`.
+### example
 
-```
-import { cssSelectorsReferences } from "@rnbws/rfrncs.design";
-```
-
-#### Files References
-
-`filesReferences`: An array containing reference data for files.
-
-Each element in the array corresponds to the type `TFilesReferences`.
-
-```
-import { filesReferences } from "@rnbws/rfrncs.design";
-```
-
-#### HTML Attributes References
-
-`htmlAttributesReferences`: An array containing reference data for HTML attributes.
-
-Each element in the array corresponds to the type `THtmlAttributesReferences`.
-
-```
-import { htmlAttributesReferences } from "@rnbws/rfrncs.design";
-```
-
-#### HTML Elements References
-
-`htmlElementsReferences`: An array containing reference data for HTML elements.
-
-Each element in the array corresponds to the type `THtmlElementsReference`.
-
-```
-import { htmlElementsReferences } from "@rnbws/rfrncs.design";
-```
-
-#### HTML Global Attributes References
-
-`htmlGlobalAttributesReferences`: An array containing reference data for HTML global attributes.
-
-Each element in the array corresponds to the type `THtmlGlobalAttributesReferences`.
-
-```
-import { htmlGlobalAttributesReferences } from "@rnbws/rfrncs.design";
-```
-
-## Get Started
-
-Install with NPM:
-
-```
-npm install @rnbws/rfrncs.design
+```javascript
+const response = await fetch('https://bicyclesystems.github.io/rfrncs/html-elements.csv');
+const data = await response.text();
 ```
